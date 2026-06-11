@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Réserver ma place · Bal de Promo 2026</title>
+  <meta name="description" content="Réserve ta place pour le bal de promo 2026 — paiement sécurisé et billet envoyé par email." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="banner">🎟️ Réservations ouvertes — Places limitées, ne tarde pas !</div>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">🎓 Bal de Promo 2026</a>
+      <nav class="nav-links">
+        <a href="index.html#bal">Le bal</a>
+        <a href="index.html#programme">Au programme</a>
+        <a href="index.html#tarif">Tarif</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+      <a class="nav-cta" href="index.html">← Retour</a>
+      <button class="menu-toggle" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <section class="resa">
+    <div class="wrap resa-grid">
+      <!-- FORMULAIRE -->
+      <div class="form-card">
+        <p class="eyebrow">Réservation</p>
+        <h2 class="serif">Réserve ta place</h2>
+        <p>Remplis tes infos, choisis le nombre de places, puis paie en ligne. Ton billet à QR code arrive aussitôt par email.</p>
+
+        <form id="resa-form" novalidate>
+          <div class="row2">
+            <div class="field">
+              <label for="prenom">Prénom</label>
+              <input type="text" id="prenom" name="prenom" autocomplete="given-name" required />
+            </div>
+            <div class="field">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" name="nom" autocomplete="family-name" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email (ton billet sera envoyé ici)</label>
+            <input type="email" id="email" name="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="email2">Confirme ton email</label>
+            <input type="email" id="email2" name="email2" required />
+          </div>
+
+          <div class="potes-toggle">
+            <input type="checkbox" id="avec-potes" />
+            <label for="avec-potes">J'amène des potes ! <b>10 € par personne seulement</b> 🎉</label>
+          </div>
+          <div class="potes-qty" id="potes-qty">
+            <button type="button" id="moins" aria-label="Retirer">−</button>
+            <span id="nb-potes">1</span>
+            <button type="button" id="plus" aria-label="Ajouter">+</button>
+            <span class="hint">potes en plus (10 max)</span>
+          </div>
+          <p class="hint">Ta place : 15 € · chaque pote en plus : 10 € (10 max).</p>
+
+          <div class="consent">
+            <input type="checkbox" id="consent" required />
+            <label for="consent">J'accepte que mes données (nom, email) servent uniquement à la billetterie et soient supprimées après l'événement.</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="pay-btn" style="width:100%">
+            Payer <span id="btn-total">15€</span> et recevoir mon billet →
+          </button>
+          <p class="error-msg" id="error"></p>
+          <p class="pay-note">🔒 Paiement sécurisé par Stripe · Billet à QR code reçu par email</p>
+        </form>
+      </div>
+
+      <!-- RÉCAP -->
+      <aside class="recap">
+        <p class="eyebrow">Récapitulatif</p>
+        <h3 class="serif">Bal de Promo 2026</h3>
+        <p class="when">Samedi 4 juillet 2026 · Salle Arc-en-ciel, Fleury-les-Aubrais</p>
+        <ul>
+          <li>Entrée à la soirée</li>
+          <li>Soft, jus & coupe de pétillant</li>
+          <li>Accès buffet, animations & photobooth</li>
+          <li>Billet envoyé par email</li>
+        </ul>
+        <div class="line"><span>Ta place</span><span>15 €</span></div>
+        <div class="line" id="line-potes" style="display:none"><span id="potes-label">Potes</span><span id="potes-sum">0 €</span></div>
+        <div class="total"><span>Total</span><span id="total">15 €</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span class="brand serif">🎓 Bal de Promo 2026</span>
+      Organisé par les 3e années de l'IFPM d'Orléans<br />
+      Contact : <a href="mailto:contelouise33@yahoo.com">contelouise33@yahoo.com</a> ·
+      <a href="tel:+33776697289">07 76 69 72 89</a>
+    </div>
+  </footer>
+
+  <script src="js/reservation.js"></script>
+</body>
+</html>
