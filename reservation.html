@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Réserver ma place · Bal de Promo 2026</title>
-  <meta name="description" content="Réserve ta place pour le bal de promo 2026 — paiement sécurisé et billet envoyé par email." />
+  <meta name="description" content="Réserve ta place pour le bal de promo 2026 — paiement sécurisé, confirmation envoyée par email." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -33,7 +33,7 @@
       <div class="form-card">
         <p class="eyebrow">Réservation</p>
         <h2 class="serif">Réserve ta place</h2>
-        <p>Remplis tes infos, choisis le nombre de places, puis paie en ligne. Ton billet à QR code arrive aussitôt par email.</p>
+        <p>Remplis tes infos, choisis le nombre de places, puis paie en ligne. Ta confirmation de paiement arrive aussitôt par email.</p>
 
         <form id="resa-form" novalidate>
           <div class="row2">
@@ -48,7 +48,7 @@
           </div>
 
           <div class="field">
-            <label for="email">Email (ton billet sera envoyé ici)</label>
+            <label for="email">Email (ta confirmation sera envoyée ici)</label>
             <input type="email" id="email" name="email" autocomplete="email" required />
           </div>
           <div class="field">
@@ -66,18 +66,22 @@
             <button type="button" id="plus" aria-label="Ajouter">+</button>
             <span class="hint">potes en plus (10 max)</span>
           </div>
+
+          <!-- noms des potes (générés automatiquement) -->
+          <div id="potes-noms"></div>
+
           <p class="hint">Ta place : 15 € · chaque pote en plus : 10 € (10 max).</p>
 
           <div class="consent">
             <input type="checkbox" id="consent" required />
-            <label for="consent">J'accepte que mes données (nom, email) servent uniquement à la billetterie et soient supprimées après l'événement.</label>
+            <label for="consent">J'accepte que ces données (noms, email) servent uniquement à la billetterie et soient supprimées après l'événement.</label>
           </div>
 
           <button type="submit" class="btn btn-primary" id="pay-btn" style="width:100%">
-            Payer <span id="btn-total">15€</span> et recevoir mon billet →
+            Payer <span id="btn-total">15€</span> et recevoir ma confirmation →
           </button>
           <p class="error-msg" id="error"></p>
-          <p class="pay-note">🔒 Paiement sécurisé par Stripe · Billet à QR code reçu par email</p>
+          <p class="pay-note">🔒 Paiement sécurisé par Stripe · Confirmation reçue par email</p>
         </form>
       </div>
 
@@ -90,7 +94,7 @@
           <li>Entrée à la soirée</li>
           <li>Soft, jus & coupe de pétillant</li>
           <li>Accès buffet, animations & photobooth</li>
-          <li>Billet envoyé par email</li>
+          <li>Confirmation de paiement par email</li>
         </ul>
         <div class="line"><span>Ta place</span><span>15 €</span></div>
         <div class="line" id="line-potes" style="display:none"><span id="potes-label">Potes</span><span id="potes-sum">0 €</span></div>
