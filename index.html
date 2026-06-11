@@ -32,8 +32,8 @@
     <div class="wrap">
       <p class="eyebrow">Promo 2026 · IFPM d'Orléans</p>
       <h1 class="serif">Une dernière <em>soirée</em> pour s'en souvenir.</h1>
-      <p class="lieu">Samedi 4 juillet 2026 · Salle Arc-en-ciel, Fleury-les-Aubrais · à partir de 19h30</p>
-      <p class="lead">Le bal de fin d'année arrive. Réserve ta place en ligne — quelques minutes suffisent, ton billet t'attend dans ta boîte mail.</p>
+      <p class="lieu">Samedi 4 juillet 2026 · Salle Arc-en-ciel, Fleury-les-Aubrais · à partir de 20h30</p>
+      <p class="lead">Le bal de fin d'année arrive. Réserve ta place en ligne — quelques minutes suffisent, et ta confirmation de paiement te sert de billet.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="reservation.html">Réserver ma place →</a>
         <a class="btn btn-ghost" href="#programme">Voir le programme</a>
@@ -59,7 +59,7 @@
       </div>
       <div class="infos">
         <div class="info-card"><div class="k">Date</div><div class="v">Sam. 4 juillet</div></div>
-        <div class="info-card"><div class="k">Horaires</div><div class="v">19h30 — 02h00</div></div>
+        <div class="info-card"><div class="k">Horaires</div><div class="v">20h30 — 02h00</div></div>
         <div class="info-card"><div class="k">Lieu</div><div class="v">Salle Arc-en-ciel</div></div>
         <div class="info-card"><div class="k">Dress code</div><div class="v">Chic & élégant</div></div>
       </div>
@@ -100,14 +100,14 @@
             <li>Soft, jus & coupe de pétillant</li>
             <li>Accès buffet, animations & photobooth</li>
             <li>Amène tes potes : 10 € / personne</li>
-            <li>Billet envoyé par email</li>
+            <li>Confirmation de paiement par email</li>
           </ul>
           <a class="btn btn-primary" href="reservation.html">Réserver maintenant →</a>
           <div class="souche"><span>Admit one · Promo</span><span>04 · 07 · 26</span></div>
         </div>
         <div class="tarif-note">
           <h3>Amène tes potes</h3>
-          <p>Chaque personne en plus, c'est seulement 10 € (10 max). Billet à QR code reçu par email · places limitées, mieux vaut ne pas attendre.</p>
+          <p>Chaque personne en plus, c'est seulement 10 € (10 max). Tu reçois ta confirmation de paiement par email · places limitées, mieux vaut ne pas attendre.</p>
         </div>
       </div>
     </div>
@@ -121,9 +121,9 @@
         <h2 class="serif">Comment ça marche</h2>
       </div>
       <div class="etapes">
-        <div class="etape"><h3>Réserve en ligne</h3><p>Scanne le QR code de l'affiche ou clique sur « Réserver » et paie ta place en quelques clics.</p></div>
-        <div class="etape"><h3>Reçois ton billet</h3><p>Un email te parvient aussitôt avec ton billet et ton QR code personnel.</p></div>
-        <div class="etape"><h3>Présente-toi le 04/07</h3><p>Montre ton QR code à l'entrée, on le scanne, et la soirée commence !</p></div>
+        <div class="etape"><h3>Réserve en ligne</h3><p>Clique sur « Réserver », remplis tes infos et paie ta place en quelques clics.</p></div>
+        <div class="etape"><h3>Reçois ta confirmation</h3><p>Un email de confirmation de paiement t'est envoyé aussitôt : c'est lui qui te sert de billet, garde-le.</p></div>
+        <div class="etape"><h3>Présente-toi le 04/07</h3><p>À l'entrée, on vérifie ton nom sur la liste des participants, et la soirée commence !</p></div>
       </div>
     </div>
   </section>
@@ -136,16 +136,16 @@
         <h2 class="serif">On répond</h2>
       </div>
       <details class="faq-item">
-        <summary>Comment je reçois mon billet ?</summary>
-        <p>Dès que ton paiement est validé, tu reçois un email avec ton billet et un QR code unique. C'est ce QR code qu'on scanne à l'entrée le soir du bal.</p>
+        <summary>Comment je reçois ma place ?</summary>
+        <p>Dès que ton paiement est validé, tu reçois par email une confirmation de paiement. C'est elle qui te sert de billet : garde-la, et ton nom figure sur la liste d'entrée le soir du bal.</p>
       </details>
       <details class="faq-item">
         <summary>Puis-je me faire rembourser ?</summary>
         <p>Oui : tu peux demander le remboursement de ta place jusqu'à la veille de l'événement, soit le 3 juillet 2026. Passé cette date, le billet n'est plus remboursable.</p>
       </details>
       <details class="faq-item">
-        <summary>Mon billet peut-il servir à quelqu'un d'autre ?</summary>
-        <p>Non : chaque QR code n'est valable qu'une seule fois. Une fois scanné à l'entrée, il ne peut plus être réutilisé.</p>
+        <summary>Ma place peut-elle servir à quelqu'un d'autre ?</summary>
+        <p>Chaque réservation est nominative : à l'entrée, on vérifie ton nom sur la liste des participants. Une réservation correspond donc à une seule personne.</p>
       </details>
       <details class="faq-item">
         <summary>Jusqu'à quand puis-je réserver ?</summary>
@@ -175,8 +175,8 @@
   </footer>
 
   <script>
-    // Compte à rebours jusqu'au 4 juillet 2026, 19h30
-    const cible = new Date("2026-07-04T19:30:00+02:00").getTime();
+    // Compte à rebours jusqu'au 4 juillet 2026, 20h30
+    const cible = new Date("2026-07-04T20:30:00+02:00").getTime();
     function tick() {
       const d = cible - Date.now();
       const set = (id, v) => document.getElementById(id).textContent = String(Math.max(0, v)).padStart(2, "0");
