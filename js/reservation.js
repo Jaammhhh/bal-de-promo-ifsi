@@ -1,11 +1,16 @@
 // ============================================================
-// Réservation — prix + noms des potes + lancement du paiement
+// Réservation — 2 formules au choix :
+//   • "place"   : ma place à 15 € (+ potes à 10 € avec leurs noms)
+//   • "externe" : inscription solo en tant qu'externe à 10 €
 // ============================================================
 
-const PRIX_PLACE = 15; // €
-const PRIX_POTE  = 10; // € par pote supplémentaire
-const POTES_MAX  = 10;
+const PRIX_PLACE    = 15; // € place classique
+const PRIX_EXTERNE  = 10; // € externe qui s'inscrit seul
+const PRIX_POTE_SUP = 10; // € par pote ajouté par un acheteur classique
+const POTES_MAX     = 10;
 
+const typeRadios   = document.querySelectorAll('input[name="type"]');
+const potesSection = document.getElementById("potes-section");
 const chk          = document.getElementById("avec-potes");
 const qtyBox       = document.getElementById("potes-qty");
 const nbEl         = document.getElementById("nb-potes");
@@ -13,6 +18,8 @@ const moins        = document.getElementById("moins");
 const plus         = document.getElementById("plus");
 const totalEl      = document.getElementById("total");
 const btnTotal     = document.getElementById("btn-total");
+const baseLabel    = document.getElementById("base-label");
+const baseAmount   = document.getElementById("base-amount");
 const linePotes    = document.getElementById("line-potes");
 const potesLbl     = document.getElementById("potes-label");
 const potesSum     = document.getElementById("potes-sum");
@@ -23,8 +30,13 @@ const form         = document.getElementById("resa-form");
 
 let potes = 0;
 
-function nbPotes() { return chk.checked ? potes : 0; }
-function total()   { return PRIX_PLACE + nbPotes() * PRIX_POTE; }
+function getType() {
+  const r = document.querySelector('input[name="type"]:checked');
+  return r ? r.value : "place"; // "place" | "externe"
+}
+function base()    { return getType() === "externe" ? PRIX_EXTERNE : PRIX_PLACE; }
+function nbPotes() { return getType() === "place" && chk.checked ? potes : 0; }
+function total()   { return base() + nbPotes() * PRIX_POTE_SUP; }
 
 // Affiche un champ "Prénom & nom" par pote, en conservant ce qui est déjà tapé
 function renderPotesNoms() {
@@ -48,18 +60,34 @@ function renderPotesNoms() {
 
 function refresh() {
   const p = nbPotes();
+  baseLabel.textContent = getType() === "externe" ? "Place externe" : "Ta place";
+  baseAmount.textContent = base() + " €";
   totalEl.textContent = total() + " €";
   btnTotal.textContent = total() + "€";
   nbEl.textContent = potes;
   if (p > 0) {
     linePotes.style.display = "flex";
     potesLbl.textContent = p + " pote" + (p > 1 ? "s" : "") + " × 10 €";
-    potesSum.textContent = p * PRIX_POTE + " €";
+    potesSum.textContent = p * PRIX_POTE_SUP + " €";
   } else {
     linePotes.style.display = "none";
   }
   renderPotesNoms();
 }
+
+// Changement de formule (place / externe)
+function applyType() {
+  if (getType() === "externe") {
+    potesSection.style.display = "none";
+    chk.checked = false;
+    potes = 0;
+    qtyBox.classList.remove("show");
+  } else {
+    potesSection.style.display = "";
+  }
+  refresh();
+}
+typeRadios.forEach((r) => r.addEventListener("change", applyType));
 
 chk.addEventListener("change", () => {
   qtyBox.classList.toggle("show", chk.checked);
@@ -70,25 +98,29 @@ chk.addEventListener("change", () => {
 plus.addEventListener("click", () => { if (potes < POTES_MAX) { potes++; refresh(); } });
 moins.addEventListener("click", () => { if (potes > 1) { potes--; refresh(); } });
 
-refresh();
+applyType();
 
 // --- soumission ---
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   errEl.textContent = "";
 
+  const type      = getType();
   const prenom    = document.getElementById("prenom").value.trim();
   const nom       = document.getElementById("nom").value.trim();
   const email     = document.getElementById("email").value.trim();
   const email2    = document.getElementById("email2").value.trim();
   const consent   = document.getElementById("consent").checked;
-  const potesNoms = Array.from(document.querySelectorAll(".pote-nom")).map((i) => i.value.trim());
+  const potesNoms = type === "place"
+    ? Array.from(document.querySelectorAll(".pote-nom")).map((i) => i.value.trim())
+    : [];
 
   if (!prenom || !nom)            return fail("Indique ton prénom et ton nom.");
   if (!email)                     return fail("Indique ton email.");
   if (email !== email2)           return fail("Les deux emails ne correspondent pas.");
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fail("Cet email n'a pas l'air valide.");
-  if (nbPotes() > 0 && potesNoms.some((v) => !v)) return fail("Indique le prénom et le nom de chacun de tes potes.");
+  if (type === "place" && nbPotes() > 0 && potesNoms.some((v) => !v))
+    return fail("Indique le prénom et le nom de chacun de tes potes.");
   if (!consent)                   return fail("Merci de cocher la case de consentement.");
 
   payBtn.disabled = true;
@@ -98,7 +130,7 @@ form.addEventListener("submit", async (e) => {
     const res = await fetch("/api/create-checkout-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prenom, nom, email, potes: nbPotes(), potesNoms }),
+      body: JSON.stringify({ type, prenom, nom, email, potes: nbPotes(), potesNoms }),
     });
     const data = await res.json();
     if (!res.ok || !data.url) throw new Error(data.error || "Erreur inattendue.");
