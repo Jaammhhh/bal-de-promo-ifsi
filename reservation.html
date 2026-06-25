@@ -9,6 +9,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Choix du type de réservation */
+    .type-resa { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .type-opt { cursor: pointer; position: relative; }
+    .type-opt input { position: absolute; opacity: 0; pointer-events: none; }
+    .type-card { display: block; border: 1px solid var(--ligne); border-radius: 14px; padding: 16px 18px; transition: border-color .2s, background .2s; height: 100%; }
+    .type-card b { display: block; color: var(--creme); margin-bottom: 4px; }
+    .type-card span { color: var(--lavande); font-size: .85rem; }
+    .type-opt input:checked + .type-card { border-color: var(--or); background: rgba(232,200,126,.08); }
+    @media (max-width: 860px) { .type-resa { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
   <div class="banner">🎟️ Réservations ouvertes — Places limitées, ne tarde pas !</div>
@@ -33,9 +44,27 @@
       <div class="form-card">
         <p class="eyebrow">Réservation</p>
         <h2 class="serif">Réserve ta place</h2>
-        <p>Remplis tes infos, choisis le nombre de places, puis paie en ligne. Ta confirmation de paiement arrive aussitôt par email.</p>
+        <p>Choisis ta formule, remplis tes infos, puis paie en ligne. Ta confirmation de paiement arrive aussitôt par email.</p>
 
         <form id="resa-form" novalidate>
+          <!-- choix du type -->
+          <div class="type-resa">
+            <label class="type-opt">
+              <input type="radio" name="type" value="place" checked />
+              <span class="type-card">
+                <b>Je prends ma place — 15 €</b>
+                <span>Avec la possibilité d'amener des potes (10 € / pers.)</span>
+              </span>
+            </label>
+            <label class="type-opt">
+              <input type="radio" name="type" value="externe" />
+              <span class="type-card">
+                <b>Je viens en tant qu'externe — 10 €</b>
+                <span>Inscription solo, juste moi</span>
+              </span>
+            </label>
+          </div>
+
           <div class="row2">
             <div class="field">
               <label for="prenom">Prénom</label>
@@ -56,21 +85,24 @@
             <input type="email" id="email2" name="email2" required />
           </div>
 
-          <div class="potes-toggle">
-            <input type="checkbox" id="avec-potes" />
-            <label for="avec-potes">J'amène des potes ! <b>10 € par personne seulement</b> 🎉</label>
-          </div>
-          <div class="potes-qty" id="potes-qty">
-            <button type="button" id="moins" aria-label="Retirer">−</button>
-            <span id="nb-potes">1</span>
-            <button type="button" id="plus" aria-label="Ajouter">+</button>
-            <span class="hint">potes en plus (10 max)</span>
-          </div>
+          <!-- section potes : visible seulement pour "Je prends ma place" -->
+          <div id="potes-section">
+            <div class="potes-toggle">
+              <input type="checkbox" id="avec-potes" />
+              <label for="avec-potes">J'amène des potes ! <b>10 € par personne seulement</b> 🎉</label>
+            </div>
+            <div class="potes-qty" id="potes-qty">
+              <button type="button" id="moins" aria-label="Retirer">−</button>
+              <span id="nb-potes">1</span>
+              <button type="button" id="plus" aria-label="Ajouter">+</button>
+              <span class="hint">potes en plus (10 max)</span>
+            </div>
 
-          <!-- noms des potes (générés automatiquement) -->
-          <div id="potes-noms"></div>
+            <!-- noms des potes (générés automatiquement) -->
+            <div id="potes-noms"></div>
 
-          <p class="hint">Ta place : 15 € · chaque pote en plus : 10 € (10 max).</p>
+            <p class="hint">Ta place : 15 € · chaque pote en plus : 10 € (10 max).</p>
+          </div>
 
           <div class="consent">
             <input type="checkbox" id="consent" required />
@@ -96,7 +128,7 @@
           <li>Accès buffet, animations & photobooth</li>
           <li>Confirmation de paiement par email</li>
         </ul>
-        <div class="line"><span>Ta place</span><span>15 €</span></div>
+        <div class="line"><span id="base-label">Ta place</span><span id="base-amount">15 €</span></div>
         <div class="line" id="line-potes" style="display:none"><span id="potes-label">Potes</span><span id="potes-sum">0 €</span></div>
         <div class="total"><span>Total</span><span id="total">15 €</span></div>
       </aside>
